@@ -8,7 +8,7 @@ func main() {
 	//bisa juga menggunakan names[0] = "Bima"
 
 	fmt.Println(names[0])
-	
+
 	var values = [3]int{
 		90,
 		95,

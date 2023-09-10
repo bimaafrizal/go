@@ -79,12 +79,15 @@ type Phone interface {
 	volumeUp() string
 	volumeDown() string
 }
+
 func CekKondisi(hp Phone) string {
 	return "cek kondisi hp " + hp.powerOn() + " " + hp.powerOff() + " " + hp.volumeUp() + " " + hp.volumeDown()
 }
+
 type Samsung struct {
 	user string
 }
+
 func (s Samsung) powerOn() string {
 	return "power on"
 }
@@ -103,7 +106,7 @@ func (s Samsung) volumeDown() string {
 //apapun data yang kosong
 //interface kosong biasanya digunakan sebagai tipe data
 //digunakan untuk menampung data dari berbagai tipe data
-func Ups(i int) interface{}{
+func Ups(i int) interface{} {
 	if i == 1 {
 		return 1
 	} else if i == 2 {
@@ -142,7 +145,6 @@ func main() {
 		user: "bima",
 	}
 	fmt.Println(CekKondisi(samsung))
-
 
 	//untuk menggunakan interface kosong
 	var data interface{} = Ups(1)

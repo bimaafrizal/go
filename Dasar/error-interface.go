@@ -15,7 +15,7 @@ func pembagian(nilai1 int, pembagi int) (int, error) {
 
 func main() {
 	//golang memiliki interdace yang digunakan sebagai kontrak untuk membuat sebuah error
-	
+
 	//biasa dilakukan dengan cara seperti ini
 	hasil, err := pembagian(100, 2)
 	if err == nil {

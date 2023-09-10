@@ -47,7 +47,7 @@ func main() {
 	//copy menyalin slice
 	slice2 := months[10:]
 	fmt.Println(slice2)
-	
+
 	slice3 := append(slice2, "Bima")
 	fmt.Println(slice3)
 	slice3[1] = "Bukan Desember"

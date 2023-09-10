@@ -130,16 +130,16 @@ type Blacklist func(string) bool
 func registerUser(name string, blacklist Blacklist) {
 	if blacklist(name) {
 		fmt.Println("You are blocked", name)
-	} 
+	}
 	fmt.Println("Welcome", name)
 }
 
 //recrusive function
 //function yang memanggil dirinya sendiri
 func faktorial(nilai int) int {
-	result := 1;
+	result := 1
 	for i := nilai; i > 0; i-- {
-		result *= i;
+		result *= i
 	}
 	return result
 }

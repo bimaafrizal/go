@@ -43,7 +43,6 @@ func main() {
 	}
 	//jika map berupa key and value
 
-
 	//break and continue
 	//break untuk menghentikan seluruh perulangan
 	//continue untuk menghentikan perulangan saat ini, dan melanjutkan ke perulangan berikutnya

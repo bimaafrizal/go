@@ -13,12 +13,12 @@ func main() {
 
 	//menambah / merubah data
 	person["title"] = "Programmer"
-	
+
 	fmt.Println(person)
 	fmt.Println(person["name"])
 
 	//fungsi map
-	fmt.Println(len(person)) //menghitung jumlah data
+	fmt.Println(len(person))  //menghitung jumlah data
 	delete(person, "address") //menghapus data
 	fmt.Println(person)
 

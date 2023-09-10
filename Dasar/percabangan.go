@@ -41,9 +41,9 @@ func main() {
 	//switch tanpa kondisi
 	length := len(name)
 	switch {
-		case length > 10:
-			fmt.Println("Terlalu Panjang")
-		case length > 5:
-			fmt.Println("Nama Lumayan Panjang")
+	case length > 10:
+		fmt.Println("Terlalu Panjang")
+	case length > 5:
+		fmt.Println("Nama Lumayan Panjang")
 	}
 }

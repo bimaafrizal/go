@@ -76,7 +76,7 @@ func main() {
 	//jika melebihi batas maka akan kembali ke nilai paling bawah(bisa negatif)
 
 	var name5 = "Bima"
-	var e = name5[0] 
+	var e = name5[0]
 	//mengambil byte dari string
 	var eString = string(e)
 
@@ -100,7 +100,7 @@ func main() {
 	//augmented assignment
 	a += 10 //a = a + 10
 	fmt.Println(a)
-	
+
 	//unary operator
 	i := 0
 	i++
