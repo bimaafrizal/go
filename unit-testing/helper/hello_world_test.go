@@ -137,8 +137,8 @@ func TestHelloWorldTable(t *testing.T) {
 
 // benchmark
 // akan diuji otomatis oleh sistem
-// jika ingin menjalankan benchmark dan semua unit test, ketik di terminal: go test -v -bench=.
-// jika ingin menjalankan benchmark tanpa unit test, ketik di terminal: go test -v -run=NotMathUnitTest -bench=.
+// jika ingin menjalankan benchmark dan semua unit test, ketik di terminal: go test -v -bench .
+// jika ingin menjalankan benchmark tanpa unit test, ketik di terminal: go test -v -run=NotMathUnitTest -bench .
 // menjalankan di root gunakan go test -v -bench=. ./...
 func BenchmarkHelloWorld(b *testing.B) {
 	for i := 0; i < b.N; i++ {
@@ -149,5 +149,45 @@ func BenchmarkHelloWorld(b *testing.B) {
 func BenchmarkHelloWorldAfrizal(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		HelloWorld("Afrizal")
+	}
+}
+
+// sub benchmark
+// untuk menjalankan benchmark saja bisa menggunakan go test -v -run=NotMathUnitTest -bench=NameBench/sub
+func BenchmarkSub(b *testing.B) {
+	b.Run("Bima", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Bima")
+		}
+	})
+	b.Run("Afrizal", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Afrizal")
+		}
+	})
+}
+
+// table benchmark
+func BenchmarkTable(b *testing.B) {
+	benchmark := []struct {
+		name    string
+		request string
+	}{
+		{
+			name:    "Bima",
+			request: "Bima",
+		},
+		{
+			name:    "Afrizal",
+			request: "Afrizal",
+		},
+	}
+
+	for _, bench := range benchmark {
+		b.Run(bench.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(bench.request)
+			}
+		})
 	}
 }
