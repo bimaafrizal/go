@@ -1,0 +1,18 @@
+proses memcahkan suatu masalah dengan cara membaginya menjadi lebih kecil dan dijalankan secara bersamaan
+
+perbedaan proses dan thread
+proses adalah sebuah eksekusi program, thread adalah bagian dari proses yang dapat dijalankan secara bersamaan
+proses mengkonsumsi memory yang besar, thread mengkonsumsi memory yang lebih kecil
+proses saling terisolasi, thread saling berbagi memory jika dalam proses yang sama
+proses lama untuk dijalankan dihentikan, thread dapat dihentikan sementara
+
+perbedaan parallel dan concurreny
+parallel adalah menjalankan beberapa proses secara bersamaan, concurrency adalah menjalankan beberapa proses secara bergantian
+dalam paralled membutuhkan banyak thread, sedangkan dalam concurrency membutuhkan sedikit thread
+
+default dari golang adalah concurrency, tapi karena runing di multi core maka dapat berjalan secara parallel
+
+CPU bound => kecepatannya tergantung pada kecepatan CPU
+I/O bound => kecepatannya tergantung pada kecepatan I/O device yang digunakan, lebih baik menggunakan concurrency
+
+*/

@@ -1,0 +1,12 @@
+goroutine sebuah thread ringan yang dikelola oleh go runtime
+berjalan secara concurrent
+dijalankan oleh go scheduler dalam thread dimana jumlah threadnya sebannyak GOMAXPROCS(mengikuti jumlah core CPU)
+berjalan diatas thread
+
+thread nempel di processor
+queue nempel di thread => terdapat 2 tipe yaitu local dan global
+local queue => queue yang ada di thread
+global queue => queue yang ada di scheduler
+thread akan mengambil dari lokal queue kemudian global, jika sudah abis maka akan steal dari queue thread lain
+concurrencynya terjadi ketika thread mengeksekusi goroutine secara bergantian, jika goroutine pertama lama maka akan dipause terlebih dahulu kemudian akan menjalankan antrian selanjutnya
+*/
