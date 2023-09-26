@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -206,4 +207,94 @@ func TestExecParameter(t *testing.T) {
 	}
 
 	fmt.Println("Success insert new user")
+}
+
+// auto increment
+// mendapatkan id setelah insert
+func TestAutoIncrement(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	email := "bima@gmail.com"
+	comment := "test comment"
+
+	//direkomendasikan menggunakan ExecContex
+	query := "INSERT INTO comments(email, comment) values (?, ?)"
+	result, err := db.ExecContext(ctx, query, email, comment)
+	if err != nil {
+		panic(err)
+	}
+	insertId, err := result.LastInsertId()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Success insert new comment with id", insertId)
+}
+
+// prepared statement
+// statement disiapakan kemudian diisi parameter
+// jika kita ingin melakukan hal yang sama sekaligus hanya berbeda parameter maka kita bisa menggunakan prepared statement
+// kita bisa membuat manual tanpa menggunakan query atau exec
+// saat menggunakan function query atau exec bisa jadi koneksinya berbeda sehingga kita akan terus2an meminta ke pull, lebih mudah menggunakan satu pool kemudian run querynya
+// saat membuat prepare statement secara otomattis akan mengenali koneksi database yang digunakan, sehingga akan menggunakan koneksi yang sama akibatnya akan lebih cepat
+// harus di close ketika sudah tidak digunakan
+func TestPreparedStatement(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	//prepare statement
+	script := "INSERT INTO comments(email, comment) values (?, ?)"
+	stmt, err := db.PrepareContext(ctx, script)
+	if err != nil {
+		panic(err)
+	}
+
+	defer stmt.Close()
+
+	//cara menggunakannya
+	for i := 0; i < 10; i++ {
+		email := "bima" + strconv.Itoa(i) + "@gmail.com"
+		comment := "comment ke " + strconv.Itoa(i)
+		result, err := stmt.ExecContext(ctx, email, comment)
+		if err != nil {
+			panic(err)
+		}
+		lastInsertId, err := result.LastInsertId()
+		fmt.Println("Comment id", lastInsertId)
+	}
+}
+
+// database transaction
+// setelah selesai transaksi kita bisa melakukan commit atau rollback
+func TestTreansactionn(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+	tx, err := db.Begin()
+	if err != nil {
+		panic(err)
+	}
+
+	script := "INSERT INTO comments(email, comment) values (?, ?)"
+	for i := 0; i < 10; i++ {
+		email := "bima" + strconv.Itoa(i) + "@gmail.com"
+		comment := "comment ke " + strconv.Itoa(i)
+		result, err := tx.ExecContext(ctx, script, email, comment)
+		if err != nil {
+			panic(err)
+		}
+		lastInsertId, err := result.LastInsertId()
+		fmt.Println("Comment id", lastInsertId)
+	}
+
+	//err = tx.Commit()
+	err = tx.Rollback()
+	if err != nil {
+		panic(err)
+	}
 }
