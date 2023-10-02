@@ -1,0 +1,9 @@
+{{/*titik diakhir artinya semua data dikirim*/}}
+{{/*define digunakan untuk merunbah nama template, sehingga ketika memanggil cukup panggil nama templatenya*/}}
+{{define "layout"}}
+{{/*{{template "header.gohtml" .}}*/}}
+{{template "header" .}}
+    <h1>Hello {{.Name}}</h1>
+{{/*{{template "footer.gohtml"}}*/}}
+{{template "footer"}}
+{{end}}
