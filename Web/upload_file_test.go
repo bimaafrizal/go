@@ -71,15 +71,19 @@ func TestUploadFormServer(t *testing.T) {
 var uploadFileTest []byte
 
 func TestUploadFormClient(t *testing.T) {
+	//inisiasi body dalam bentuk byte
 	body := new(bytes.Buffer)
-
+	// merubah bentuk body dalam bentuk multipart
 	writer := multipart.NewWriter(body)
 	writer.WriteField("name", "Bima")
+	// mengambil form file
 	file, _ := writer.CreateFormFile("file", "contoh.png")
+	// mengambil file yang akan diupload
 	file.Write(uploadFileTest)
 	writer.Close()
 
 	request := httptest.NewRequest(http.MethodPost, "http://localhost:8080/upload", body)
+	// harus set content type agar tidak gagal upload (seprti multipart/form-data di html)
 	request.Header.Set("Content-Type", writer.FormDataContentType())
 	recorder := httptest.NewRecorder()
 
