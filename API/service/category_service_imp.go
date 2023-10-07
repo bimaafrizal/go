@@ -33,7 +33,7 @@ func (c *CategoryServiceImpl) Create(ctx context.Context, request web.CategoryCr
 		Name: request.Name,
 	}
 
-	c.CategoryRepository.Save(ctx, tx, category)
+	category = c.CategoryRepository.Save(ctx, tx, category)
 	return helper.ToCategoryResponse(category)
 }
 
