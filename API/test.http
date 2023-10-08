@@ -19,13 +19,13 @@ X-API-Key: RAHASIA
 Accept: application/json
 
 ### Update category by id
-PUT http://localhost:3000/api/categories/1
+PUT http://localhost:3000/api/categories/100
 X-API-Key: RAHASIA
 Accept: application/json
 Content-Type: application/json
 
 {
-  "name" : ""
+  "name" : "Fashion"
 }
 
 ### Delete category by id
