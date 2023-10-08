@@ -4,7 +4,6 @@ import (
 	"belajar-api/helper"
 	"belajar-api/model/web"
 	"belajar-api/service"
-	"encoding/json"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"strconv"
@@ -33,11 +32,8 @@ func (c *CategoryControllerImpl) Create(writer http.ResponseWriter, request *htt
 }
 
 func (c *CategoryControllerImpl) Update(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	decoder := json.NewDecoder(request.Body)
-
 	categoryUpdateRequest := web.CategoryUpdateRequest{}
-	err := decoder.Decode(&categoryUpdateRequest)
-	helper.PanicIfError(err)
+	helper.ReadFromRequestBody(request, &categoryUpdateRequest)
 
 	categoryId := params.ByName("categoryId")
 	id, err := strconv.Atoi(categoryId)

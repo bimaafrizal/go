@@ -27,12 +27,12 @@ func (c *CategoryRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, category 
 	return category
 }
 
-func (c *CategoryRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, category domain.Category) {
+func (c *CategoryRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category {
 	SQL := "UPDATE categories SET name = ? WHERE id = ?"
 	_, err := tx.ExecContext(ctx, SQL, category.Name, category.Id)
 	helper.PanicIfError(err)
 
-	//return category
+	return category
 }
 
 func (c *CategoryRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, category domain.Category) {

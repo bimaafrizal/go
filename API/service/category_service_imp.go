@@ -1,6 +1,7 @@
 package service
 
 import (
+	"belajar-api/exception"
 	"belajar-api/helper"
 	"belajar-api/model/domain"
 	"belajar-api/model/web"
@@ -39,7 +40,10 @@ func (c *CategoryServiceImpl) Create(ctx context.Context, request web.CategoryCr
 
 func (c *CategoryServiceImpl) Update(ctx context.Context, request web.CategoryUpdateRequest) web.CategoryResponse {
 	err := c.Validate.Struct(request)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
+	//helper.PanicIfError(err)
 
 	tx, err := c.DB.Begin()
 	helper.PanicIfError(err)
@@ -47,7 +51,10 @@ func (c *CategoryServiceImpl) Update(ctx context.Context, request web.CategoryUp
 
 	//validasi
 	category, err := c.CategoryRepository.FindById(ctx, tx, request.Id)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
+	//helper.PanicIfError(err)
 
 	category.Name = request.Name
 
@@ -61,7 +68,10 @@ func (c *CategoryServiceImpl) Delete(ctx context.Context, categoryId int) {
 	defer helper.CommitOrRollback(tx)
 
 	category, err := c.CategoryRepository.FindById(ctx, tx, categoryId)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
+	//helper.PanicIfError(err)
 
 	c.CategoryRepository.Delete(ctx, tx, category)
 }
@@ -72,7 +82,10 @@ func (c *CategoryServiceImpl) FindById(ctx context.Context, categoryId int) web.
 	defer helper.CommitOrRollback(tx)
 
 	category, err := c.CategoryRepository.FindById(ctx, tx, categoryId)
-	helper.PanicIfError(err)
+	//helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
 
 	return helper.ToCategoryResponse(category)
 }
